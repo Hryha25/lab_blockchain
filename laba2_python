@@ -1,0 +1,28 @@
+import hashlib
+
+num = 1
+iin = input("set iin: ").strip()
+
+while True:
+    text = f"{iin}{num}"
+    h = hashlib.sha256(text.encode()).hexdigest()
+
+    if h.startswith("00"):
+        print("\n result:")
+        print("value:", num)
+        print("SHA-256 hash:", h)
+        break
+
+    num += 1
+
+while True:
+    text = f"{iin}{num}"
+    h = hashlib.sha256(text.encode()).hexdigest()
+
+    if h.startswith("000"):
+        print("\n result:")
+        print("value:", num)
+        print("SHA-256 hash:", h)
+        break
+
+    num += 1
