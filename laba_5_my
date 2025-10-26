@@ -1,0 +1,25 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.19;
+
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+contract HrToken is ERC20, Ownable {
+    uint256 public constant MAX_SUPPLY = 1_000_000 * 10 ** 8;
+
+    constructor()
+        ERC20("HrToken", "HRT")
+        Ownable(msg.sender) 
+    {
+        _mint(0x8f646aB754687C86a6713A69eA06047aC5b38CE6, 100_000 * 10 ** decimals());
+    }
+
+    function decimals() public pure override returns (uint8) {
+        return 8;
+    }
+
+    function mint(address to, uint256 amount) public onlyOwner {
+        require(totalSupply() + amount <= MAX_SUPPLY, "Max supply exceeded");
+        _mint(to, amount);
+    }
+}
